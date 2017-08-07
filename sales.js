@@ -1,33 +1,35 @@
 var pdxAirport = {
-    minCustomers : 23,
-    maxCustomers : 65,
-    avgCookiesPerCust : 6.3,
-}
+  minCustomers : 23,
+  maxCustomers : 65,
+  avgCookiesPerCust : 6.3,
+  randomCust : function(){
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  }
+};
 
-var pioneerSquare = {
-    minCustomers : 3,
-    maxCustomers : 24,
-    avgCookiesPerCust : 1.2,
-}
+// var pioneerSquare = {
+//     minCustomers : 3,
+//     maxCustomers : 24,
+//     avgCookiesPerCust : 1.2,
+// }
 
-var Powells = {
-    minCustomers : 11,
-    maxCustomers : 38,
-    avgCookiesPerCust : 3.7,
-}
+// var Powells = {
+//     minCustomers : 11,
+//     maxCustomers : 38,
+//     avgCookiesPerCust : 3.7,
+// }
 
-var stJohns = {
-    minCustomers : 20,
-    maxCustomers : 38,
-    avgCookiesPerCust : 2.3,
-}
+// var stJohns = {
+//     minCustomers : 20,
+//     maxCustomers : 38,
+//     avgCookiesPerCust : 2.3,
+// }
 
-var waterfront = {
-    minCustomers : 2,
-    maxCustomers : 16,
-    avgCookiesPerCust : 4.6,
-}
-
+// var waterfront = {
+//     minCustomers : 2,
+//     maxCustomers : 16,
+//     avgCookiesPerCust : 4.6,
+// }
 
 // First, create a separate JS object literal (no constructor functions... yet) for each shop location that does the following:
 
