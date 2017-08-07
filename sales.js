@@ -20,10 +20,11 @@ var pdxAirport = {
 
   addToDom : function() {
     for (var i = 0; i < 15; i++) {
-    var container = document.getElementById('list');
-    var createList = document.createElement('li');
-    createList.innerHTML = (this.cookieDataArray()[i] + ' of cookie');
-    container.appendChild( createList );
+      var container = document.getElementById('list');
+      var createList = document.createElement('li');
+      var savedCookieArrayItem = this.cookieDataArray()[i];
+      createList.innerHTML = (savedCookieArrayItem + ' of cookie');
+      container.appendChild( createList );
     }
   }
 
