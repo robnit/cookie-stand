@@ -2,8 +2,11 @@ var pdxAirport = {
   minCustomers : 23,
   maxCustomers : 65,
   avgCookiesPerCust : 6.3,
-  randomCust : function(){
+  randomCust : function() {
     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
   }
 };
 
