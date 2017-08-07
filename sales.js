@@ -10,29 +10,53 @@ var pdxAirport = {
   }
 };
 
-// var pioneerSquare = {
-//     minCustomers : 3,
-//     maxCustomers : 24,
-//     avgCookiesPerCust : 1.2,
-// }
+var pioneerSquare = {
+  minCustomers : 3,
+  maxCustomers : 24,
+  avgCookiesPerCust : 1.2,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  }
+};
 
-// var Powells = {
-//     minCustomers : 11,
-//     maxCustomers : 38,
-//     avgCookiesPerCust : 3.7,
-// }
+var Powells = {
+  minCustomers : 11,
+  maxCustomers : 38,
+  avgCookiesPerCust : 3.7,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  }
+};
 
-// var stJohns = {
-//     minCustomers : 20,
-//     maxCustomers : 38,
-//     avgCookiesPerCust : 2.3,
-// }
+var stJohns = {
+  minCustomers : 20,
+  maxCustomers : 38,
+  avgCookiesPerCust : 2.3,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  }
+};
 
-// var waterfront = {
-//     minCustomers : 2,
-//     maxCustomers : 16,
-//     avgCookiesPerCust : 4.6,
-// }
+var waterfront = {
+  minCustomers : 2,
+  maxCustomers : 16,
+  avgCookiesPerCust : 4.6,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  }
+};
 
 // First, create a separate JS object literal (no constructor functions... yet) for each shop location that does the following:
 
