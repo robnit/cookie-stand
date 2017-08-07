@@ -7,6 +7,13 @@ var pdxAirport = {
   },
   avgCookiesPerHour : function() {
     return this.randomCust() * this.avgCookiesPerCust;
+  },
+  cookieDataArray : function() {
+    tempArray = [];
+    for (i = 0;i < 15;i++){
+      tempArray.push(Math.floor(this.avgCookiesPerHour()));
+    }
+    return tempArray;
   }
 };
 
