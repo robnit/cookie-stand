@@ -5,65 +5,85 @@ var pdxAirport = {
   randomCust : function() {
     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
   },
+  
   avgCookiesPerHour : function() {
     return this.randomCust() * this.avgCookiesPerCust;
   },
+  
   cookieDataArray : function() {
-    tempArray = [];
+    var tempArray = [];
     for (i = 0;i < 15;i++){
       tempArray.push(Math.floor(this.avgCookiesPerHour()));
     }
     return tempArray;
-  }
-};
-
-var pioneerSquare = {
-  minCustomers : 3,
-  maxCustomers : 24,
-  avgCookiesPerCust : 1.2,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
   },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  }
-};
 
-var Powells = {
-  minCustomers : 11,
-  maxCustomers : 38,
-  avgCookiesPerCust : 3.7,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
+  addToDom : function() {
+    for (var i = 0; i < 15; i++) {
+    var container = document.getElementById('list');
+    var createList = document.createElement('li');
+    createList.innerHTML = (this.cookieDataArray()[i] + ' of cookie');
+    container.appendChild( createList );
+    }
   }
-};
 
-var stJohns = {
-  minCustomers : 20,
-  maxCustomers : 38,
-  avgCookiesPerCust : 2.3,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  }
-};
+//   savedCookieArray: function(){ ---This doesn't work and I don't know why. How do i use .this in an object property???
+//       return this.cookieDataArray();
+//   }
 
-var waterfront = {
-  minCustomers : 2,
-  maxCustomers : 16,
-  avgCookiesPerCust : 4.6,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  }
-};
+}; // end of object
+
+pdxAirport.addToDom();
+
+
+
+// var pioneerSquare = {
+//   minCustomers : 3,
+//   maxCustomers : 24,
+//   avgCookiesPerCust : 1.2,
+//   randomCust : function() {
+//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+//   },
+//   avgCookiesPerHour : function() {
+//     return this.randomCust() * this.avgCookiesPerCust;
+//   }
+// };
+
+// var Powells = {
+//   minCustomers : 11,
+//   maxCustomers : 38,
+//   avgCookiesPerCust : 3.7,
+//   randomCust : function() {
+//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+//   },
+//   avgCookiesPerHour : function() {
+//     return this.randomCust() * this.avgCookiesPerCust;
+//   }
+// };
+
+// var stJohns = {
+//   minCustomers : 20,
+//   maxCustomers : 38,
+//   avgCookiesPerCust : 2.3,
+//   randomCust : function() {
+//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+//   },
+//   avgCookiesPerHour : function() {
+//     return this.randomCust() * this.avgCookiesPerCust;
+//   }
+// };
+
+// var waterfront = {
+//   minCustomers : 2,
+//   maxCustomers : 16,
+//   avgCookiesPerCust : 4.6,
+//   randomCust : function() {
+//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+//   },
+//   avgCookiesPerHour : function() {
+//     return this.randomCust() * this.avgCookiesPerCust;
+//   }
+// };
 
 // First, create a separate JS object literal (no constructor functions... yet) for each shop location that does the following:
 
