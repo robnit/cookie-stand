@@ -6,7 +6,7 @@ var CookieStore = function (name, minCustomers, maxCustomers, avgCookiesPerCust,
   this.elementId = elementId;
   this.staticCookies = [];
   this.openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-  // this.addToDom();
+  this.addToDom();
 };
 
 CookieStore.prototype.randomCust = function () {
@@ -19,9 +19,6 @@ CookieStore.prototype.avgCookiesPerHour = function () {
 
 CookieStore.prototype.cookieDataArray = function () {
   for (var i = 0; i < 15; i++){
-    console.log('avgCookiesPerHour variable is ' + this.avgCookiesPerHour());
-    console.log('randomcust method is ' + this.randomCust() + ' and avgCookiesPerCust variable is ' + this.avgCookiesPerCust);
-    console.log('staticCookies var is ' + this.staticCookies);
     this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
   }
 };
@@ -49,57 +46,9 @@ CookieStore.prototype.addToDom = function () {
 
 };
 
-
 var pdxAirport = new CookieStore('PDX Airpot', 23, 65, 6.3, 'pdxairport');
-console.log(pdxAirport);
 
-// var pdxAirport = {
-  // name : 'PDX Airport',
-  // minCustomers : 23,
-  // maxCustomers : 65,
-  // avgCookiesPerCust : 6.3,
-  // randomCust : function() {
-  //   return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  // },
 
-  // avgCookiesPerHour : function() {
-  //   return this.randomCust() * this.avgCookiesPerCust;
-  // },
-
-  // staticCookies : [],//required empty array
-
-  // cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-  //   for (i = 0;i < 15;i++){
-  //     this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
-  //   }
-  // },
-
-//   addToDom : function() {
-//     var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-//     this.cookieDataArray();
-//     var container = document.getElementById('list');
-//     var createHeader = document.createElement('lh');
-//     createHeader.innerHTML = ('<b>' + this.name + '</b>');
-//     container.appendChild( createHeader);
-
-//     for (var i = 0; i < 15; i++) {
-//       var createList = document.createElement('li');
-//       createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-//       container.appendChild( createList );
-//     }
-
-//     var cookieSum = 0;
-//     for (var i = 0; i < this.staticCookies.length; i++){
-//       cookieSum = cookieSum + this.staticCookies[i];
-//     }
-
-//     createList.innerHTML = ('Total Cookies: ' + cookieSum);
-//     container.appendChild( createList );
-
-//   }
-// };
-
-pdxAirport.addToDom();
 
 // var pioneerSquare = {
 //   name : 'Pioneer Square',
