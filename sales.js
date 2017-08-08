@@ -1,3 +1,5 @@
+
+
 var CookieStore = function (name, minCustomers, maxCustomers, avgCookiesPerCust, elementId){
   this.name = name;
   this.minCustomers = minCustomers;
@@ -36,6 +38,17 @@ CookieStore.prototype.addToDom = function () {
     container.appendChild( createList );
   }
 
+//TODO: INTEGRATE THIS SO IT GENERATES TD'S IN A PROPERLY ID'D TR ELEMENT
+  // testArray = [32, 53, 34, 23, 11, 99, 56, 66, 79, 69, 43, 84, 23, 53, 20];
+
+// var myContainer = document.getElementById('test');
+// for (var i = 0; i < 15; i++){
+//   // newTableElement.id = 'table' + i;
+//   var newTableElement = document.createElement('td');
+//   newTableElement.textContent = testArray[i];
+//   myContainer.appendChild(newTableElement);
+// }
+
   var cookieSum = 0;
   for (var i = 0; i < this.staticCookies.length; i++){
     cookieSum = cookieSum + this.staticCookies[i];
@@ -47,6 +60,9 @@ CookieStore.prototype.addToDom = function () {
 };
 
 var pdxAirport = new CookieStore('PDX Airpot', 23, 65, 6.3, 'pdxairport');
+
+
+
 
 
 
