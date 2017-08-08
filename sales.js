@@ -5,27 +5,36 @@ var pdxAirport = {
   randomCust : function() {
     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
   },
-  
+
   avgCookiesPerHour : function() {
     return this.randomCust() * this.avgCookiesPerCust;
   },
-  
+
+  staticCookies : [],
+
   cookieDataArray : function() {
-    var tempArray = [];
     for (i = 0;i < 15;i++){
-      tempArray.push(Math.floor(this.avgCookiesPerHour()));
+      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
     }
-    return tempArray;
   },
 
   addToDom : function() {
+    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+    this.cookieDataArray();
     for (var i = 0; i < 15; i++) {
       var container = document.getElementById('list');
       var createList = document.createElement('li');
-      var savedCookieArrayItem = this.cookieDataArray()[i];
-      createList.innerHTML = (savedCookieArrayItem + ' of cookie');
+      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
       container.appendChild( createList );
     }
+    var cookieSum = 0;
+    for (var i = 0; i < this.staticCookies.length; i++){
+      cookieSum = cookieSum + this.staticCookies[i];
+    }
+
+    createList.innerHTML = ('Total Cookies: ' + cookieSum);
+    container.appendChild( createList );
+
   }
 
 //   savedCookieArray: function(){ ---This doesn't work and I don't know why. How do i use .this in an object property???
@@ -35,8 +44,6 @@ var pdxAirport = {
 }; // end of object
 
 pdxAirport.addToDom();
-
-
 
 // var pioneerSquare = {
 //   minCustomers : 3,
