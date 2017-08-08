@@ -206,19 +206,19 @@ var waterfront = {
 
   addToDom : function() {
     var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-    this.cookieDataArray();
+    this.cookieDataArray(); //invoke method to populate staticCookies array with 15 random numbers
     var container = document.getElementById('list');
     var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    createHeader.innerHTML = ('<b>' + this.name + '</b>'); //create list header element
     container.appendChild( createHeader);
     
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < 15; i++) { //create li element for each array element of staticCookies
       var createList = document.createElement('li');
       createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
       container.appendChild( createList );
     }
 
-    var cookieSum = 0;
+    var cookieSum = 0; //simple for-loop for calculating total cookies
     for (var i = 0; i < this.staticCookies.length; i++){
       cookieSum = cookieSum + this.staticCookies[i];
     }
