@@ -22,18 +22,17 @@ var pdxAirport = {
   addToDom : function() {
     var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
     this.cookieDataArray();
-    
     var container = document.getElementById('list');
-    console.log('container is ' + container);
     var createHeader = document.createElement('lh');
-    console.log('createHeader is ' + container);
-    createHeader.innerHTML = '<b>' + this.name + '</b>';
+    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    container.appendChild( createHeader);
 
     for (var i = 0; i < 15; i++) {
       var createList = document.createElement('li');
       createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
       container.appendChild( createList );
     }
+
     var cookieSum = 0;
     for (var i = 0; i < this.staticCookies.length; i++){
       cookieSum = cookieSum + this.staticCookies[i];
@@ -52,57 +51,185 @@ var pdxAirport = {
 
 pdxAirport.addToDom();
 
-// var pioneerSquare = {
-//  name : 'Pioneer Square',
-//   minCustomers : 3,
-//   maxCustomers : 24,
-//   avgCookiesPerCust : 1.2,
-//   randomCust : function() {
-//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-//   },
-//   avgCookiesPerHour : function() {
-//     return this.randomCust() * this.avgCookiesPerCust;
-//   }
-// };
+var pioneerSquare = {
+  name : 'Pioneer Square',
+  minCustomers : 3,
+  maxCustomers : 24,
+  avgCookiesPerCust : 1.2,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  },
+  staticCookies : [],//required empty array
 
-// var Powells = {
-// name : 'Powells',
-//   minCustomers : 11,
-//   maxCustomers : 38,
-//   avgCookiesPerCust : 3.7,
-//   randomCust : function() {
-//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-//   },
-//   avgCookiesPerHour : function() {
-//     return this.randomCust() * this.avgCookiesPerCust;
-//   }
-// };
+  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
+    for (i = 0;i < 15;i++){
+      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
+    }
+  },
+  addToDom : function() {
+    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+    this.cookieDataArray();
+    var container = document.getElementById('list');
+    var createHeader = document.createElement('lh');
+    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    container.appendChild( createHeader);
 
-// var stJohns = {
-//   name : 'St. Johns',
-//   minCustomers : 20,
-//   maxCustomers : 38,
-//   avgCookiesPerCust : 2.3,
-//   randomCust : function() {
-//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-//   },
-//   avgCookiesPerHour : function() {
-//     return this.randomCust() * this.avgCookiesPerCust;
-//   }
-// };
+    for (var i = 0; i < 15; i++) {
+      var createList = document.createElement('li');
+      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
+      container.appendChild( createList );
+    }
+    var cookieSum = 0;
+    for (var i = 0; i < this.staticCookies.length; i++){
+      cookieSum = cookieSum + this.staticCookies[i];
+    }
+    createList.innerHTML = ('Total Cookies: ' + cookieSum);
+    container.appendChild( createList );
+  }
+};
 
-// var waterfront = {
-//   name : 'Waterfront',
-//   minCustomers : 2,
-//   maxCustomers : 16,
-//   avgCookiesPerCust : 4.6,
-//   randomCust : function() {
-//     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-//   },
-//   avgCookiesPerHour : function() {
-//     return this.randomCust() * this.avgCookiesPerCust;
-//   }
-// };
+pioneerSquare.addToDom();
+
+var powells = {
+name : 'Powells',
+  minCustomers : 11,
+  maxCustomers : 38,
+  avgCookiesPerCust : 3.7,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  },
+staticCookies : [],//required empty array
+
+  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
+    for (i = 0;i < 15;i++){
+      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
+    }
+  },
+
+  addToDom : function() {
+    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+    this.cookieDataArray();
+    var container = document.getElementById('list');
+    var createHeader = document.createElement('lh');
+    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    container.appendChild( createHeader);
+    
+    for (var i = 0; i < 15; i++) {
+      var createList = document.createElement('li');
+      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
+      container.appendChild( createList );
+    }
+
+    var cookieSum = 0;
+    for (var i = 0; i < this.staticCookies.length; i++){
+      cookieSum = cookieSum + this.staticCookies[i];
+    }
+
+    createList.innerHTML = ('Total Cookies: ' + cookieSum);
+    container.appendChild( createList );
+
+  }
+};
+
+powells.addToDom();
+
+var stJohns = {
+  name : 'St. Johns',
+  minCustomers : 20,
+  maxCustomers : 38,
+  avgCookiesPerCust : 2.3,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  },
+staticCookies : [],//required empty array
+
+  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
+    for (i = 0;i < 15;i++){
+      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
+    }
+  },
+
+  addToDom : function() {
+    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+    this.cookieDataArray();
+    var container = document.getElementById('list');
+    var createHeader = document.createElement('lh');
+    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    container.appendChild( createHeader);
+    
+    for (var i = 0; i < 15; i++) {
+      var createList = document.createElement('li');
+      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
+      container.appendChild( createList );
+    }
+
+    var cookieSum = 0;
+    for (var i = 0; i < this.staticCookies.length; i++){
+      cookieSum = cookieSum + this.staticCookies[i];
+    }
+
+    createList.innerHTML = ('Total Cookies: ' + cookieSum);
+    container.appendChild( createList );
+
+  }
+};
+
+stJohns.addToDom();
+
+var waterfront = {
+  name : 'Waterfront',
+  minCustomers : 2,
+  maxCustomers : 16,
+  avgCookiesPerCust : 4.6,
+  randomCust : function() {
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+  },
+  avgCookiesPerHour : function() {
+    return this.randomCust() * this.avgCookiesPerCust;
+  },
+staticCookies : [],//required empty array
+
+  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
+    for (i = 0;i < 15;i++){
+      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
+    }
+  },
+
+  addToDom : function() {
+    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+    this.cookieDataArray();
+    var container = document.getElementById('list');
+    var createHeader = document.createElement('lh');
+    createHeader.innerHTML = ('<b>' + this.name + '</b>');
+    container.appendChild( createHeader);
+    
+    for (var i = 0; i < 15; i++) {
+      var createList = document.createElement('li');
+      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
+      container.appendChild( createList );
+    }
+
+    var cookieSum = 0;
+    for (var i = 0; i < this.staticCookies.length; i++){
+      cookieSum = cookieSum + this.staticCookies[i];
+    }
+
+    createList.innerHTML = ('Total Cookies: ' + cookieSum);
+    container.appendChild( createList );
+
+  }
+};
+
+waterfront.addToDom();
 
 // First, create a separate JS object literal (no constructor functions... yet) for each shop location that does the following:
 
