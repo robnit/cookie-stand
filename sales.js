@@ -229,4 +229,4 @@ var waterfront = {
   }
 };
 
-waterfront.addToDom()
+waterfront.addToDom();
