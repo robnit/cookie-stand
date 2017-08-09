@@ -43,23 +43,22 @@ CookieStore.prototype.makeTableElement = function (elementName, elementType, new
     container.appendChild( createNewElement );
 };
 
+//Method to make new TD element with inner HTML content **DOESNT WORK YET**
+CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHTML, tosser) {
+    if (tosser) {
+        var createTosserElement = document.createElement( elementType );
+        createTosserElement.innerHTML = innerHTML;
+        container.appendChild( createTosserElement );
+    }
+    else {
+        var createNewElement = document.createElement(elementType);
+        createNewElement.innerHTML = innerHTML;
+        container.appendChild( createNewElement );
+    }
+};
+
 CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
-
-    //Function to make new HTML element with inner HTML content **DOESNT WORK YET**
-    var makeHTMLelement = function (elementType, innerHTML, tosser) {
-        if (tosser) {
-            var createTosserElement = document.createElement( elementType );
-            createTosserElement.innerHTML = innerHTML;
-            tosserContainer.appendChild( createTosserElement );
-        }
-        else {
-            var createNewElement = document.createElement(elementType);
-            createNewElement.innerHTML = innerHTML;
-            container.appendChild( createNewElement );
-        }
-    };
-
     //Create TR element with id as this.elementId
     this.makeTableElement('masterTable','tr',this.elementId);
     //cookietosser code - create same code as above in cookieTosser table
@@ -67,41 +66,26 @@ CookieStore.prototype.addToDom = function () {
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
-    makeHTMLelement('td','<b>' + this.name + '</b>');
-    // var createTableElement = document.createElement( 'td' );
-    // createTableElement.innerHTML = '<b>' + this.name + '</b>';
-    // container.appendChild( createTableElement );
+    this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
 
     //cookietosser code - apply the same code to the "elementID+tosser" element
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
 
-    makeHTMLelement('td','<b>' + this.name + '</b>', true);
-
-    // var createTosserElement = document.createElement( 'td' );
-    // createTosserElement.innerHTML = '<b>' + this.name + '</b>';
-    // tosserContainer.appendChild( createTosserElement );
+    this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
 
     for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
-        makeHTMLelement('td',this.staticCookies[i]);
-        // var createTableElement = document.createElement( 'td' );
-        // createTableElement.innerHTML = this.staticCookies[i];
-        // container.appendChild( createTableElement );
-        //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
+        this.makeHTMLelement(container,'td',this.staticCookies[i]);
 
-        makeHTMLelement('td',this.staticCookies[i],true);
-        // var createTosserElement = document.createElement( 'td' );
-        // createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]);
-        // tosserContainer.appendChild( createTosserElement );
+        //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
+        this.makeHTMLelement(tosserContainer,'td',this.staticCookies[i],true);
     }
     var cookieSum = 0; //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
         cookieSum = cookieSum + this.staticCookies[i];
     }
-    makeHTMLelement('td','<b>' + cookieSum + '</b>');
-    // var createTableElement = document.createElement( 'td' );
-    // createTableElement.innerHTML = ('<b>' + cookieSum + '</b>');
-    // container.appendChild( createTableElement );
+    this.makeHTMLelement(container,'td','<b>' + cookieSum + '</b>');
 
+    
 };
 
 //create table headers populated with openHours elements
