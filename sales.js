@@ -22,26 +22,50 @@ CookieStore.prototype.cookieDataArray = function () {
     }
 };
 
+//Stretch goal: cookie tosser prototype
+CookieStore.prototype.cookieTossers = function (input) {
+    if (input <= 2){
+        return 2;
+    }
+    else if (input % 20 == 0){
+        return input / 20;
+    }
+    else {
+        return Math.floor(input / 20) + 1;
+    }
+};
+
 CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
-  
+
     //Create TR element with id as this.elementId
     var container = document.getElementById('masterTable');
+    var tosserContainer = document.getElementById('cookieTossers'); //cookietosser
     var createTableRow = document.createElement('tr');
+    var createTosserRow = document.createElement('tr'); //cookietosser
     createTableRow.id = this.elementId;
+    createTosserRow.id = this.elementId + 'tosser'; //cookietosser
     container.appendChild( createTableRow );
+    tosserContainer.appendChild( createTosserRow ); //cookietosser
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
+    var tosserContainer = document.getElementById(this.elementId + 'tosser'); //cookietosser
     var createTableElement = document.createElement( 'td' );
+    var createTosserElement = document.createElement( 'td' ); //cookietosser
     createTableElement.innerHTML = '<b>' + this.name + '</b>';
+    createTosserElement.innerHTML = '<b>' + this.name + '</b>'; //cookietosser
     container.appendChild( createTableElement );
+    tosserContainer.appendChild( createTosserElement ); //cookietosser
     for (var i = 0; i < this.staticCookies.length; i++) {
         var createTableElement = document.createElement( 'td' );
+        var createTosserElement = document.createElement( 'td' ); //cookietosser
         createTableElement.innerHTML = this.staticCookies[i];
+        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]); //cookietosser
         container.appendChild( createTableElement );
+        tosserContainer.appendChild( createTosserElement ); //cookietosser
     }
-    var cookieSum = 0;
+    var cookieSum = 0; //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
         cookieSum = cookieSum + this.staticCookies[i];
     }
@@ -52,14 +76,21 @@ CookieStore.prototype.addToDom = function () {
 };
 
 //create table headers populated with openHours elements
-var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm', 'Total'];
+var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
 var tableHeader = document.getElementById('masterTable');
-var createTableHead = document.createElement( 'th' );
+var tosserHeader = document.getElementById('cookieTossers'); //cookietosser
+var createTableHead = document.createElement( 'th' ); //create empty TH element
+var createTosserHead = document.createElement( 'th' ); //cookietosser
 tableHeader.appendChild( createTableHead );
+tosserHeader.appendChild( createTosserHead ); //cookietosser
 for (var i = 0; i < openHours.length; i++) {
     var createTableHead = document.createElement( 'th' );
+    var createTosserHead = document.createElement( 'th' ); //cookietosser
     createTableHead.innerHTML = openHours[i];
+    createTosserHead.innerHTML = openHours[i]; //cookietosser
     tableHeader.appendChild( createTableHead );
+    tosserHeader.appendChild( createTosserHead ); //cookietosser
+
 }
 
 var pdxAirport = new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport');
