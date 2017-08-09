@@ -5,6 +5,7 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust, eleme
     this.avgCookiesPerCust = avgCookiesPerCust;
     this.elementId = elementId;
     this.staticCookies = [];
+    this.cookieSum = 0;
     this.addToDom();
 };
 
@@ -77,11 +78,11 @@ CookieStore.prototype.addToDom = function () {
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
         this.makeHTMLelement(tosserContainer,'td',this.staticCookies[i],true);
     }
-    var cookieSum = 0; //calculate total
+     //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
-        cookieSum = cookieSum + this.staticCookies[i];
+        this.cookieSum = this.cookieSum + this.staticCookies[i];
     }
-    this.makeHTMLelement(container,'td','<b>' + cookieSum + '</b>');
+    this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
 };
 
 CookieStore.prototype.tableHeaders = function(){
