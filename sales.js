@@ -43,27 +43,31 @@ CookieStore.prototype.addToDom = function () {
     var createTableRow = document.createElement('tr');
     createTableRow.id = this.elementId;
     container.appendChild( createTableRow );
-    var tosserContainer = document.getElementById('cookieTossers'); //cookietosser
-    var createTosserRow = document.createElement('tr'); //cookietosser
-    createTosserRow.id = this.elementId + 'tosser'; //cookietosser
-    tosserContainer.appendChild( createTosserRow ); //cookietosser
+    //cookietosser code - create same code as above in cookieTosser table
+    var tosserContainer = document.getElementById('cookieTossers');
+    var createTosserRow = document.createElement('tr');
+    createTosserRow.id = this.elementId + 'tosser';
+    tosserContainer.appendChild( createTosserRow );
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
-    var tosserContainer = document.getElementById(this.elementId + 'tosser'); //cookietosser
     var createTableElement = document.createElement( 'td' );
-    var createTosserElement = document.createElement( 'td' ); //cookietosser
     createTableElement.innerHTML = '<b>' + this.name + '</b>';
-    createTosserElement.innerHTML = '<b>' + this.name + '</b>'; //cookietosser
     container.appendChild( createTableElement );
-    tosserContainer.appendChild( createTosserElement ); //cookietosser
-    for (var i = 0; i < this.staticCookies.length; i++) {
+    //cookietosser code - apply the same code to the "elementID+tosser" element
+    var tosserContainer = document.getElementById(this.elementId + 'tosser'); 
+    var createTosserElement = document.createElement( 'td' ); 
+    createTosserElement.innerHTML = '<b>' + this.name + '</b>'; 
+    tosserContainer.appendChild( createTosserElement ); 
+
+    for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
         var createTableElement = document.createElement( 'td' );
-        var createTosserElement = document.createElement( 'td' ); //cookietosser
         createTableElement.innerHTML = this.staticCookies[i];
-        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]); //cookietosser
         container.appendChild( createTableElement );
-        tosserContainer.appendChild( createTosserElement ); //cookietosser
+        //cookietosser code- does the same as above, but numbers are run through the cookieTossers function
+        var createTosserElement = document.createElement( 'td' ); 
+        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]); 
+        tosserContainer.appendChild( createTosserElement ); 
     }
     var cookieSum = 0; //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
@@ -78,19 +82,22 @@ CookieStore.prototype.addToDom = function () {
 //create table headers populated with openHours elements
 var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
 var tableHeader = document.getElementById('masterTable');
-var tosserHeader = document.getElementById('cookieTossers'); //cookietosser
 var createTableHead = document.createElement( 'th' ); //create empty TH element
-var createTosserHead = document.createElement( 'th' ); //cookietosser
 tableHeader.appendChild( createTableHead );
-tosserHeader.appendChild( createTosserHead ); //cookietosser
+//cookietosser code - create cookietosser headers
+var tosserHeader = document.getElementById('cookieTossers'); 
+var createTosserHead = document.createElement( 'th' ); 
+tosserHeader.appendChild( createTosserHead ); 
+
 for (var i = 0; i < openHours.length; i++) {
     var createTableHead = document.createElement( 'th' );
     createTableHead.innerHTML = openHours[i];
     tableHeader.appendChild( createTableHead );
-    if ( i < openHours.length - 1 ){
-        var createTosserHead = document.createElement( 'th' ); //cookietosser
-        createTosserHead.innerHTML = openHours[i]; //cookietosser
-        tosserHeader.appendChild( createTosserHead ); //cookietosser
+    
+    if ( i < openHours.length - 1 ){ //cookietosser code - nested if conditional to prevent cookietosser table from loading "Total" column
+        var createTosserHead = document.createElement( 'th' ); 
+        createTosserHead.innerHTML = openHours[i]; 
+        tosserHeader.appendChild( createTosserHead ); 
     }
 }
 
