@@ -39,7 +39,7 @@ CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
 
     //Functon to make new HTML element with id
-    var makeElement = function (elementName, elementType, newElementId) {
+    var makeTableRow = function (elementName, elementType, newElementId) {
         var container = document.getElementById(elementName);
         var createNewElement = document.createElement(elementType);
         createNewElement.id = newElementId;
@@ -54,9 +54,9 @@ CookieStore.prototype.addToDom = function () {
     };
 
     //Create TR element with id as this.elementId
-    makeElement('masterTable','tr',this.elementId,'');
+    makeTableRow('masterTable','tr',this.elementId);
     //cookietosser code - create same code as above in cookieTosser table
-    makeElement('cookieTossers','tr',this.elementId + 'tosser','');
+    makeTableRow('cookieTossers','tr',this.elementId + 'tosser','');
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
@@ -69,6 +69,7 @@ CookieStore.prototype.addToDom = function () {
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
 
     // makeHTMLelement('td','<b>' + this.name + '</b>');
+   
     var createTosserElement = document.createElement( 'td' );
     createTosserElement.innerHTML = '<b>' + this.name + '</b>';
     tosserContainer.appendChild( createTosserElement );
