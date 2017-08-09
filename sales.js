@@ -47,8 +47,7 @@ CookieStore.prototype.addToDom = function () {
     };
 
     //Function to make new HTML element with inner HTML content **DOESNT WORK YET**
-    var makeHTMLelement = function (elementName, elementType, innerHTML) {
-        var container = document.getElementById(elementName);
+    var makeHTMLelement = function (elementType, innerHTML) {
         var createNewElement = document.createElement(elementType);
         createNewElement.innerHTML = innerHTML;
         container.appendChild( createNewElement );
@@ -60,15 +59,16 @@ CookieStore.prototype.addToDom = function () {
     makeElement('cookieTossers','tr',this.elementId + 'tosser','');
 
     //Create row of TD elements containing location name, cookie data, and total
-
     var container = document.getElementById(this.elementId);
-    var createTableElement = document.createElement( 'td' );
-    createTableElement.innerHTML = '<b>' + this.name + '</b>';
-    container.appendChild( createTableElement );
+    makeHTMLelement('td','<b>' + this.name + '</b>');
+    // var createTableElement = document.createElement( 'td' );
+    // createTableElement.innerHTML = '<b>' + this.name + '</b>';
+    // container.appendChild( createTableElement );
 
     //cookietosser code - apply the same code to the "elementID+tosser" element
-
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
+
+    // makeHTMLelement('td','<b>' + this.name + '</b>');
     var createTosserElement = document.createElement( 'td' );
     createTosserElement.innerHTML = '<b>' + this.name + '</b>';
     tosserContainer.appendChild( createTosserElement );
