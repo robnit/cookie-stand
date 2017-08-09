@@ -39,7 +39,7 @@ CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
 
     //Functon to make new HTML element with id
-    var makeTableRow = function (elementName, elementType, newElementId) {
+    var makeTableElement = function (elementName, elementType, newElementId) {
         var container = document.getElementById(elementName);
         var createNewElement = document.createElement(elementType);
         createNewElement.id = newElementId;
@@ -61,9 +61,9 @@ CookieStore.prototype.addToDom = function () {
     };
 
     //Create TR element with id as this.elementId
-    makeTableRow('masterTable','tr',this.elementId);
+    makeTableElement('masterTable','tr',this.elementId);
     //cookietosser code - create same code as above in cookieTosser table
-    makeTableRow('cookieTossers','tr',this.elementId + 'tosser','');
+    makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
@@ -109,6 +109,14 @@ var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00a
 var tableHeader = document.getElementById('masterTable');
 var createTableHead = document.createElement( 'th' ); //create empty TH element
 tableHeader.appendChild( createTableHead );
+
+// makeTableElement('masterTable','th');
+// (elementName, elementType, newElementId) 
+// var container = document.getElementById(elementName);
+// var createNewElement = document.createElement(elementType);
+// createNewElement.id = newElementId;
+// container.appendChild( createNewElement );
+
 //cookietosser code - create cookietosser headers
 var tosserHeader = document.getElementById('cookieTossers');
 var createTosserHead = document.createElement( 'th' );
