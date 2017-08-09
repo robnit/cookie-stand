@@ -70,12 +70,10 @@ CookieStore.prototype.addToDom = function () {
 
     //cookietosser code - apply the same code to the "elementID+tosser" element
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
-
     this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
 
     for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
         this.makeHTMLelement(container,'td',this.staticCookies[i]);
-
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
         this.makeHTMLelement(tosserContainer,'td',this.staticCookies[i],true);
     }
@@ -84,8 +82,6 @@ CookieStore.prototype.addToDom = function () {
         cookieSum = cookieSum + this.staticCookies[i];
     }
     this.makeHTMLelement(container,'td','<b>' + cookieSum + '</b>');
-
-    
 };
 
 //create table headers populated with openHours elements
