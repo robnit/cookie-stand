@@ -35,16 +35,16 @@ CookieStore.prototype.cookieTossers = function (input) {
     }
 };
 
+//Method to make new table element with optional id
+CookieStore.prototype.makeTableElement = function (elementName, elementType, newElementId) {
+    var container = document.getElementById(elementName);
+    var createNewElement = document.createElement(elementType);
+    createNewElement.id = newElementId;
+    container.appendChild( createNewElement );
+};
+
 CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
-
-    //Functon to make new HTML element with id
-    var makeTableElement = function (elementName, elementType, newElementId) {
-        var container = document.getElementById(elementName);
-        var createNewElement = document.createElement(elementType);
-        createNewElement.id = newElementId;
-        container.appendChild( createNewElement );
-    };
 
     //Function to make new HTML element with inner HTML content **DOESNT WORK YET**
     var makeHTMLelement = function (elementType, innerHTML, tosser) {
@@ -61,9 +61,9 @@ CookieStore.prototype.addToDom = function () {
     };
 
     //Create TR element with id as this.elementId
-    makeTableElement('masterTable','tr',this.elementId);
+    this.makeTableElement('masterTable','tr',this.elementId);
     //cookietosser code - create same code as above in cookieTosser table
-    makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
+    this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
 
     //Create row of TD elements containing location name, cookie data, and total
     var container = document.getElementById(this.elementId);
