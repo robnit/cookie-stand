@@ -47,10 +47,17 @@ CookieStore.prototype.addToDom = function () {
     };
 
     //Function to make new HTML element with inner HTML content **DOESNT WORK YET**
-    var makeHTMLelement = function (elementType, innerHTML) {
-        var createNewElement = document.createElement(elementType);
-        createNewElement.innerHTML = innerHTML;
-        container.appendChild( createNewElement );
+    var makeHTMLelement = function (elementType, innerHTML, tosser) {
+        if (tosser) {
+            var createTosserElement = document.createElement( elementType );
+            createTosserElement.innerHTML = innerHTML;
+            tosserContainer.appendChild( createTosserElement );
+        }
+        else {
+            var createNewElement = document.createElement(elementType);
+            createNewElement.innerHTML = innerHTML;
+            container.appendChild( createNewElement );
+        }
     };
 
     //Create TR element with id as this.elementId
@@ -68,17 +75,17 @@ CookieStore.prototype.addToDom = function () {
     //cookietosser code - apply the same code to the "elementID+tosser" element
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
 
-    // makeHTMLelement('td','<b>' + this.name + '</b>');
-   
-    var createTosserElement = document.createElement( 'td' );
-    createTosserElement.innerHTML = '<b>' + this.name + '</b>';
-    tosserContainer.appendChild( createTosserElement );
+    makeHTMLelement('td','<b>' + this.name + '</b>', true);
+
+    // var createTosserElement = document.createElement( 'td' );
+    // createTosserElement.innerHTML = '<b>' + this.name + '</b>';
+    // tosserContainer.appendChild( createTosserElement );
 
     for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
-       
-        var createTableElement = document.createElement( 'td' );
-        createTableElement.innerHTML = this.staticCookies[i];
-        container.appendChild( createTableElement );
+        makeHTMLelement('td',this.staticCookies[i]);
+        // var createTableElement = document.createElement( 'td' );
+        // createTableElement.innerHTML = this.staticCookies[i];
+        // container.appendChild( createTableElement );
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
 
         var createTosserElement = document.createElement( 'td' );
