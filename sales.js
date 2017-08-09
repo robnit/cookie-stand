@@ -88,17 +88,19 @@ CookieStore.prototype.addToDom = function () {
         // container.appendChild( createTableElement );
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
 
-        var createTosserElement = document.createElement( 'td' );
-        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]);
-        tosserContainer.appendChild( createTosserElement );
+        makeHTMLelement('td',this.staticCookies[i],true);
+        // var createTosserElement = document.createElement( 'td' );
+        // createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]);
+        // tosserContainer.appendChild( createTosserElement );
     }
     var cookieSum = 0; //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
         cookieSum = cookieSum + this.staticCookies[i];
     }
-    var createTableElement = document.createElement( 'td' );
-    createTableElement.innerHTML = ('<b>' + cookieSum + '</b>');
-    container.appendChild( createTableElement );
+    makeHTMLelement('td','<b>' + cookieSum + '</b>');
+    // var createTableElement = document.createElement( 'td' );
+    // createTableElement.innerHTML = ('<b>' + cookieSum + '</b>');
+    // container.appendChild( createTableElement );
 
 };
 
