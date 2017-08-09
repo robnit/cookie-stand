@@ -1,232 +1,108 @@
-var pdxAirport = {
-  name : 'PDX Airport',
-  minCustomers : 23,
-  maxCustomers : 65,
-  avgCookiesPerCust : 6.3,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  },
-
-  staticCookies : [],//required empty array
-
-  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-    for (i = 0;i < 15;i++){
-      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
-    }
-  },
-
-  addToDom : function() {
-    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-    this.cookieDataArray();
-    var container = document.getElementById('list');
-    var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>');
-    container.appendChild( createHeader);
-
-    for (var i = 0; i < 15; i++) {
-      var createList = document.createElement('li');
-      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-      container.appendChild( createList );
-    }
-
-    var cookieSum = 0;
-    for (var i = 0; i < this.staticCookies.length; i++){
-      cookieSum = cookieSum + this.staticCookies[i];
-    }
-
-    createList.innerHTML = ('Total Cookies: ' + cookieSum);
-    container.appendChild( createList );
-
-  }
-
-//   savedCookieArray: function(){ ---This doesn't work and I don't know why. How do i use .this in an object property???
-//       return this.cookieDataArray();
-//   }
-
-}; // end of object
-
-pdxAirport.addToDom();
-
-var pioneerSquare = {
-  name : 'Pioneer Square',
-  minCustomers : 3,
-  maxCustomers : 24,
-  avgCookiesPerCust : 1.2,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  },
-  staticCookies : [],//required empty array
-
-  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-    for (i = 0;i < 15;i++){
-      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
-    }
-  },
-  addToDom : function() {
-    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-    this.cookieDataArray();
-    var container = document.getElementById('list');
-    var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>');
-    container.appendChild( createHeader);
-
-    for (var i = 0; i < 15; i++) {
-      var createList = document.createElement('li');
-      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-      container.appendChild( createList );
-    }
-    var cookieSum = 0;
-    for (var i = 0; i < this.staticCookies.length; i++){
-      cookieSum = cookieSum + this.staticCookies[i];
-    }
-    createList.innerHTML = ('Total Cookies: ' + cookieSum);
-    container.appendChild( createList );
-  }
+var CookieStore = function (name, minCustomers, maxCustomers, avgCookiesPerCust, elementId){
+    this.name = name;
+    this.minCustomers = minCustomers;
+    this.maxCustomers = maxCustomers;
+    this.avgCookiesPerCust = avgCookiesPerCust;
+    this.elementId = elementId;
+    this.staticCookies = [];
+    this.addToDom();
 };
 
-pioneerSquare.addToDom();
-
-var powells = {
-  name : 'Powells',
-  minCustomers : 11,
-  maxCustomers : 38,
-  avgCookiesPerCust : 3.7,
-  randomCust : function() {
+CookieStore.prototype.randomCust = function () {
     return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
+};
+
+CookieStore.prototype.avgCookiesPerHour = function () {
     return this.randomCust() * this.avgCookiesPerCust;
-  },
-  staticCookies : [],//required empty array
+};
 
-  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-    for (i = 0;i < 15;i++){
-      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
+CookieStore.prototype.cookieDataArray = function () {
+    for (var i = 0; i < 15; i++){
+        this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
     }
-  },
+};
 
-  addToDom : function() {
-    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+//Stretch goal: cookie tosser prototype
+CookieStore.prototype.cookieTossers = function (input) {
+    if (input <= 2){
+        return 2;
+    }
+    else if (input % 20 == 0){
+        return input / 20;
+    }
+    else {
+        return Math.floor(input / 20) + 1;
+    }
+};
+
+CookieStore.prototype.addToDom = function () {
     this.cookieDataArray();
-    var container = document.getElementById('list');
-    var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>');
-    container.appendChild( createHeader);
+
+    //Create TR element with id as this.elementId
+    var container = document.getElementById('masterTable');
+    var createTableRow = document.createElement('tr');
+    createTableRow.id = this.elementId;
+    container.appendChild( createTableRow );
+    //cookietosser code - create same code as above in cookieTosser table
+    var tosserContainer = document.getElementById('cookieTossers');
+    var createTosserRow = document.createElement('tr');
+    createTosserRow.id = this.elementId + 'tosser';
+    tosserContainer.appendChild( createTosserRow );
+
+    //Create row of TD elements containing location name, cookie data, and total
+    var container = document.getElementById(this.elementId);
+    var createTableElement = document.createElement( 'td' );
+    createTableElement.innerHTML = '<b>' + this.name + '</b>';
+    container.appendChild( createTableElement );
+    //cookietosser code - apply the same code to the "elementID+tosser" element
+    var tosserContainer = document.getElementById(this.elementId + 'tosser'); 
+    var createTosserElement = document.createElement( 'td' ); 
+    createTosserElement.innerHTML = '<b>' + this.name + '</b>'; 
+    tosserContainer.appendChild( createTosserElement ); 
+
+    for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
+        var createTableElement = document.createElement( 'td' );
+        createTableElement.innerHTML = this.staticCookies[i];
+        container.appendChild( createTableElement );
+        //cookietosser code- does the same as above, but numbers are run through the cookieTossers function
+        var createTosserElement = document.createElement( 'td' ); 
+        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]); 
+        tosserContainer.appendChild( createTosserElement ); 
+    }
+    var cookieSum = 0; //calculate total
+    for (var i = 0; i < this.staticCookies.length; i++){
+        cookieSum = cookieSum + this.staticCookies[i];
+    }
+    var createTableElement = document.createElement( 'td' );
+    createTableElement.innerHTML = ('<b>' + cookieSum + '</b>');
+    container.appendChild( createTableElement );
+
+};
+
+//create table headers populated with openHours elements
+var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
+var tableHeader = document.getElementById('masterTable');
+var createTableHead = document.createElement( 'th' ); //create empty TH element
+tableHeader.appendChild( createTableHead );
+//cookietosser code - create cookietosser headers
+var tosserHeader = document.getElementById('cookieTossers'); 
+var createTosserHead = document.createElement( 'th' ); 
+tosserHeader.appendChild( createTosserHead ); 
+
+for (var i = 0; i < openHours.length; i++) {
+    var createTableHead = document.createElement( 'th' );
+    createTableHead.innerHTML = openHours[i];
+    tableHeader.appendChild( createTableHead );
     
-    for (var i = 0; i < 15; i++) {
-      var createList = document.createElement('li');
-      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-      container.appendChild( createList );
+    if ( i < openHours.length - 1 ){ //cookietosser code - nested if conditional to prevent cookietosser table from loading "Total" column
+        var createTosserHead = document.createElement( 'th' ); 
+        createTosserHead.innerHTML = openHours[i]; 
+        tosserHeader.appendChild( createTosserHead ); 
     }
+}
 
-    var cookieSum = 0;
-    for (var i = 0; i < this.staticCookies.length; i++){
-      cookieSum = cookieSum + this.staticCookies[i];
-    }
-
-    createList.innerHTML = ('Total Cookies: ' + cookieSum);
-    container.appendChild( createList );
-
-  }
-};
-
-powells.addToDom();
-
-var stJohns = {
-  name : 'St. Johns',
-  minCustomers : 20,
-  maxCustomers : 38,
-  avgCookiesPerCust : 2.3,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  },
-  staticCookies : [],//required empty array
-
-  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-    for (i = 0;i < 15;i++){
-      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
-    }
-  },
-
-  addToDom : function() {
-    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-    this.cookieDataArray();
-    var container = document.getElementById('list');
-    var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>');
-    container.appendChild( createHeader);
-    
-    for (var i = 0; i < 15; i++) {
-      var createList = document.createElement('li');
-      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-      container.appendChild( createList );
-    }
-
-    var cookieSum = 0;
-    for (var i = 0; i < this.staticCookies.length; i++){
-      cookieSum = cookieSum + this.staticCookies[i];
-    }
-
-    createList.innerHTML = ('Total Cookies: ' + cookieSum);
-    container.appendChild( createList );
-
-  }
-};
-
-stJohns.addToDom();
-
-var waterfront = {
-  name : 'Waterfront',
-  minCustomers : 2,
-  maxCustomers : 16,
-  avgCookiesPerCust : 4.6,
-  randomCust : function() {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
-  },
-  avgCookiesPerHour : function() {
-    return this.randomCust() * this.avgCookiesPerCust;
-  },
-  staticCookies : [],//required empty array
-
-  cookieDataArray : function() { //pushes a static sample of random numbers to staticCookies variable
-    for (i = 0;i < 15;i++){
-      this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
-    }
-  },
-
-  addToDom : function() {
-    var openHours = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-    this.cookieDataArray(); //invoke method to populate staticCookies array with 15 random numbers
-    var container = document.getElementById('list');
-    var createHeader = document.createElement('lh');
-    createHeader.innerHTML = ('<b>' + this.name + '</b>'); //create list header element
-    container.appendChild( createHeader);
-    
-    for (var i = 0; i < 15; i++) { //create li element for each array element of staticCookies
-      var createList = document.createElement('li');
-      createList.innerHTML = (openHours[i] + ': ' + this.staticCookies[i] + ' of cookie');
-      container.appendChild( createList );
-    }
-
-    var cookieSum = 0; //simple for-loop for calculating total cookies
-    for (var i = 0; i < this.staticCookies.length; i++){
-      cookieSum = cookieSum + this.staticCookies[i];
-    }
-
-    createList.innerHTML = ('Total Cookies: ' + cookieSum);
-    container.appendChild( createList );
-
-  }
-};
-
-waterfront.addToDom();
+var pdxAirport = new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport');
+var pioneerSquare = new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare');
+var powells = new CookieStore('Powells', 11, 38, 3.7, 'powells');
+var stjohns = new CookieStore('St Johns', 20, 38, 2.3, 'stjohns');
+var waterfront = new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront');
