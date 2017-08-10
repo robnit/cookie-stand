@@ -21,10 +21,26 @@
         <h2>Cookies per hour</h2>
         <table id="masterTable">
         </table>
-        <div id="total"></div>
         <h2>Cookie tossers needed per hour</h2>
         <table id="cookieTossers">
         </table>
+
+        <form id="new-question">
+            <fieldset>
+                <legend>New Question</legend>
+
+                <label for="minCustomers">Minimum Customers</label>
+                <input type="text" name="minCustomers" id="question" placeholder="Minimum">
+
+                <label for="maxCustomers">Maximum Customers</label>
+                <input type="text" id="maxCustomers" placeholder="Maximum">
+
+                <label for="avgCookies">Average Cookies Sold Per Customer</label>
+                <input type="text" id="avgCookies" placeholder="Average">
+
+                <button type="submit">Submit</button>
+            </fieldset>
+        </form>
 
         <script src="sales.js"></script>
     </body>

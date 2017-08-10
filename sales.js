@@ -1,9 +1,9 @@
-function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust, elementId) {
+function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust) {
     this.name = name;
     this.minCustomers = minCustomers;
     this.maxCustomers = maxCustomers;
     this.avgCookiesPerCust = avgCookiesPerCust;
-    this.elementId = elementId;
+    this.elementId = this.name; //TO DO: replace constructor instances of this.elementId with this.name
     this.staticCookies = [];
     this.cookieSum = 0;
     this.addToDom();
@@ -159,12 +159,26 @@ CookieStore.prototype.totalCookies = function () {
 };
 
 var cookieStoreArray = [
-    new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport'),
-    new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare'),
-    new CookieStore('Powells', 11, 38, 3.7, 'powells'),
-    new CookieStore('St Johns', 20, 38, 2.3, 'stjohns'),
-    new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
+    new CookieStore('PDX Airport', 23, 65, 6.3),
+    new CookieStore('Pioneer Square', 3, 24, 1.2),
+    new CookieStore('Powell\'s', 11, 38, 3.7),
+    new CookieStore('St Johns', 20, 38, 2.3),
+    new CookieStore('Waterfront', 2, 16, 4.6)
 ];
 cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
 
+//Form & Event Sorcery
+
+var form = document.getElementById( 'new-question' );
+form.addEventListener( 'submit', eventHandler);
+
+var eventHandler = function () {
+    event.preventDefault();
+
+    console.log( this.minCustomers.value );
+    console.log( this.maxCustomers.value );
+    console.log( this.avgCookies.value );
+    
+    var newQuestion = new CookieStore( this.minCustomers.value, this.maxCustomers.value, this.avgCookies.value );
+};
