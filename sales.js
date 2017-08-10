@@ -5,6 +5,7 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust, eleme
     this.avgCookiesPerCust = avgCookiesPerCust;
     this.elementId = elementId;
     this.staticCookies = [];
+    this.cookieSum = 0;
     this.addToDom();
 };
 
@@ -22,9 +23,9 @@ CookieStore.prototype.cookieDataArray = function () {
     }
 };
 
-//Stretch goal: cookie tosser prototype
+//Cookie tosser requirement formula
 CookieStore.prototype.cookieTossers = function (input) {
-    if (input <= 2){
+    if (input < 40){
         return 2;
     }
     else if (input % 20 == 0){
@@ -35,89 +36,112 @@ CookieStore.prototype.cookieTossers = function (input) {
     }
 };
 
-CookieStore.prototype.addToDom = function () {
-    this.cookieDataArray();
+//Method to make new table element with optional id
+CookieStore.prototype.makeTableElement = function (elementName, elementType, newElementId) {
+    var container = document.getElementById(elementName);
+    var createNewElement = document.createElement(elementType);
+    createNewElement.id = newElementId;
+    container.appendChild( createNewElement );
+};
 
-    //Functon to make new HTML element with id
-    var makeElement = function (elementName, elementType, newElementId) {
-        var container = document.getElementById(elementName);
-        var createNewElement = document.createElement(elementType);
-        createNewElement.id = newElementId;
-        container.appendChild( createNewElement );
-    };
-
-    //Function to make new HTML element with inner HTML content **DOESNT WORK YET**
-    var makeHTMLelement = function (elementName, elementType, innerHTML) {
-        var container = document.getElementById(elementName);
+//Method to make new TD element with inner HTML content **DOESNT WORK YET**
+CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHTML, tosser) {
+    if (tosser) {
+        var createTosserElement = document.createElement( elementType );
+        createTosserElement.innerHTML = innerHTML;
+        container.appendChild( createTosserElement );
+    }
+    else {
         var createNewElement = document.createElement(elementType);
         createNewElement.innerHTML = innerHTML;
         container.appendChild( createNewElement );
-    };
+    }
+};
 
+CookieStore.prototype.addToDom = function () {
+    this.cookieDataArray();
     //Create TR element with id as this.elementId
-    makeElement('masterTable','tr',this.elementId,'');
+    this.makeTableElement('masterTable','tr',this.elementId);
     //cookietosser code - create same code as above in cookieTosser table
-    makeElement('cookieTossers','tr',this.elementId + 'tosser','');
+    this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
 
     //Create row of TD elements containing location name, cookie data, and total
-
     var container = document.getElementById(this.elementId);
-    var createTableElement = document.createElement( 'td' );
-    createTableElement.innerHTML = '<b>' + this.name + '</b>';
-    container.appendChild( createTableElement );
+    this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
 
     //cookietosser code - apply the same code to the "elementID+tosser" element
-
     var tosserContainer = document.getElementById(this.elementId + 'tosser');
-    var createTosserElement = document.createElement( 'td' );
-    createTosserElement.innerHTML = '<b>' + this.name + '</b>';
-    tosserContainer.appendChild( createTosserElement );
+    this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
 
     for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
-       
-        var createTableElement = document.createElement( 'td' );
-        createTableElement.innerHTML = this.staticCookies[i];
-        container.appendChild( createTableElement );
+        this.makeHTMLelement(container,'td',this.staticCookies[i]);
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
-
-        var createTosserElement = document.createElement( 'td' );
-        createTosserElement.innerHTML = this.cookieTossers(this.staticCookies[i]);
-        tosserContainer.appendChild( createTosserElement );
+        this.makeHTMLelement(tosserContainer,'td',this.cookieTossers(this.staticCookies[i]),true);
     }
-    var cookieSum = 0; //calculate total
+    //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
-        cookieSum = cookieSum + this.staticCookies[i];
+        this.cookieSum = this.cookieSum + this.staticCookies[i];
     }
-    var createTableElement = document.createElement( 'td' );
-    createTableElement.innerHTML = ('<b>' + cookieSum + '</b>');
-    container.appendChild( createTableElement );
-
+    this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
 };
 
 //create table headers populated with openHours elements
-var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
-var tableHeader = document.getElementById('masterTable');
-var createTableHead = document.createElement( 'th' ); //create empty TH element
-tableHeader.appendChild( createTableHead );
-//cookietosser code - create cookietosser headers
-var tosserHeader = document.getElementById('cookieTossers');
-var createTosserHead = document.createElement( 'th' );
-tosserHeader.appendChild( createTosserHead );
+CookieStore.prototype.tableHeaders = function(){
+    var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
 
-for (var i = 0; i < openHours.length; i++) {
+    //create new row for main table, inserting before all other child elements
+    var headers = document.getElementById('masterTable');
+    var headerTableRow = document.createElement( 'tr' );
+    headerTableRow.id = 'headerRow';
+    headers.insertBefore(headerTableRow, headers.childNodes[0]);
+
+    //create empty TH element
+    var tableHeader = document.getElementById('headerRow');
     var createTableHead = document.createElement( 'th' );
-    createTableHead.innerHTML = openHours[i];
     tableHeader.appendChild( createTableHead );
 
-    if ( i < openHours.length - 1 ){ //cookietosser code - nested if conditional to prevent cookietosser table from loading "Total" column
-        var createTosserHead = document.createElement( 'th' );
-        createTosserHead.innerHTML = openHours[i];
-        tosserHeader.appendChild( createTosserHead );
-    }
-}
+    //cookietosser code - create cookietosser headers
+    var tosserHeaders = document.getElementById('cookieTossers');
+    var headerTableRow = document.createElement( 'tr' );
+    headerTableRow.id = 'tosserRow';
+    tosserHeaders.insertBefore(headerTableRow, tosserHeaders.childNodes[0]);
+    //create empty TH element
+    var tosserHeader = document.getElementById('tosserRow');
+    var createTosserHead = document.createElement( 'th' );
+    tosserHeader.appendChild( createTosserHead );
 
-var pdxAirport = new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport');
-var pioneerSquare = new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare');
-var powells = new CookieStore('Powells', 11, 38, 3.7, 'powells');
-var stjohns = new CookieStore('St Johns', 20, 38, 2.3, 'stjohns');
-var waterfront = new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront');
+    for (var i = 0; i < openHours.length; i++) {
+        var createTableHead = document.createElement( 'th' );
+        createTableHead.innerHTML = openHours[i];
+        tableHeader.appendChild( createTableHead );
+        //cookietosser code - nested if conditional to prevent cookietosser table from loading "Total" column
+        if ( i < openHours.length - 1 ){
+            var createTosserHead = document.createElement( 'th' );
+            createTosserHead.innerHTML = openHours[i];
+            tosserHeader.appendChild( createTosserHead );
+        }
+    }
+}; // End of tableHeaders method
+
+//Calculate total cookies in all stores
+CookieStore.prototype.totalCookies = function () {
+    var totalCounter = 0;
+    for (var i = 0; i < cookieStoreArray.length; i++){
+        totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
+    }
+    var container = document.getElementById('total');
+    var totalHeader = document.createElement('h3');
+    totalHeader.textContent = 'Total cookies in all stores : ' + totalCounter;
+    console.log(totalCounter);
+    container.appendChild( totalHeader );
+};
+
+var cookieStoreArray = [
+    new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport'),
+    new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare'),
+    new CookieStore('Powells', 11, 38, 3.7, 'powells'),
+    new CookieStore('St Johns', 20, 38, 2.3, 'stjohns'),
+    new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
+]; 
+cookieStoreArray[0].tableHeaders();
+cookieStoreArray[0].totalCookies();
