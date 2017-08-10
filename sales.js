@@ -142,6 +142,6 @@ var cookieStoreArray = [
     new CookieStore('Powells', 11, 38, 3.7, 'powells'),
     new CookieStore('St Johns', 20, 38, 2.3, 'stjohns'),
     new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
-];
+]; 
 cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
