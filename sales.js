@@ -149,7 +149,7 @@ CookieStore.prototype.totalCookies = function () {
     }
     //calculate cookie total per td
     var totalCounter = 0;
-    for (var i = 0; i < cookieStoreArray.length; i++){
+    for (var i = 0; i < cookieStoreArray.length; i++){ //TO DO: change length to be based on number of children of 'masterTable' element
         totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
     }
     // var container = document.getElementById('total');
@@ -184,6 +184,7 @@ form.addEventListener( 'submit', function(){
     removeTotal.outerHTML = '';
     var newQuestion = new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value);
     cookieStoreArray[0].totalCookies();
+    // document.form.reset();   TO DO: MAKE THE TEXT FIELDS CLEAR ON SUBMIT
 
     //DEBUGGING HELPER GARBAGE
     // console.log('submitted store name is ' + this.storeName );
