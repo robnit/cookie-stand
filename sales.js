@@ -65,7 +65,7 @@ CookieStore.prototype.addToDom = function () {
     //cookietosser code - create same code as above in cookieTosser table
     this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
 
-    //Create row of TD elements containing location name, cookie data, and total
+    //Create TD Element with location name
     var container = document.getElementById(this.elementId);
     this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
 
