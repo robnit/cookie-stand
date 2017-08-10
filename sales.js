@@ -158,27 +158,33 @@ CookieStore.prototype.totalCookies = function () {
     container.appendChild( totalHeader );
 };
 
-var cookieStoreArray = [
-    new CookieStore('PDX Airport', 23, 65, 6.3),
-    new CookieStore('Pioneer Square', 3, 24, 1.2),
-    new CookieStore('Powell\'s', 11, 38, 3.7),
-    new CookieStore('St Johns', 20, 38, 2.3),
-    new CookieStore('Waterfront', 2, 16, 4.6)
-];
-cookieStoreArray[0].tableHeaders();
-cookieStoreArray[0].totalCookies();
+// var cookieStoreArray = [
+//     new CookieStore('PDX Airport', 23, 65, 6.3),
+//     new CookieStore('Pioneer Square', 3, 24, 1.2),
+//     new CookieStore('Powell\'s', 11, 38, 3.7),
+//     new CookieStore('St Johns', 20, 38, 2.3),
+//     new CookieStore('Waterfront', 2, 16, 4.6)
+// ];
+// cookieStoreArray[0].tableHeaders();
+// cookieStoreArray[0].totalCookies();
 
 //Form & Event Sorcery
 
-var form = document.getElementById( 'new-question' );
-form.addEventListener( 'submit', eventHandler);
-
-var eventHandler = function () {
+var form = document.getElementById( 'store-entry' );
+form.addEventListener( 'submit', function(){
     event.preventDefault();
 
-    console.log( this.minCustomers.value );
-    console.log( this.maxCustomers.value );
-    console.log( this.avgCookies.value );
-    
-    var newQuestion = new CookieStore( this.minCustomers.value, this.maxCustomers.value, this.avgCookies.value );
-};
+    //ALTERNATIVE WAY TO WRITE THIS
+    // var name = event.target.storeName.value;
+    // var minCustomers = parseInt(event.target.minCustomers.value);
+    // var maxCustomers = parseInt(event.target.maxCustomers.value);
+    // var avgCookiesPerCust = parseInt(event.target.avgCookies.value);
+    // var newQuestion = new CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust);
+
+    var newQuestion = new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value);
+
+    console.log('submitted store name is ' + this.storeName );
+    console.log('submitted mincustomers is ' + this.minCustomers );
+    console.log('submitted max customers is ' + this.maxCustomers.value );
+    console.log('submitted avg is ' + this.avgCookies.value );
+});
