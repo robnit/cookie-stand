@@ -132,7 +132,6 @@ CookieStore.prototype.totalCookies = function () {
     var container = document.getElementById('total');
     var totalHeader = document.createElement('h3');
     totalHeader.textContent = 'Total cookies in all stores : ' + totalCounter;
-    console.log(totalCounter);
     container.appendChild( totalHeader );
 };
 
@@ -145,3 +144,29 @@ var cookieStoreArray = [
 ]; 
 cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
+
+//Function for totaling columns
+// cookieStoreArray[colNumber].staticCookies[rowNumber]
+//create new table row
+var container = document.getElementById('masterTable');
+var newTableRow = document.createElement( 'tr' );
+newTableRow.id = 'totals' ;
+container.appendChild( newTableRow );
+
+//create blank table header
+container = document.getElementById( 'totals' );
+var totalTableHeader = document.createElement( 'th' );
+totalTableHeader.innerHTML = '<b>Totals</b>';
+container.appendChild( totalTableHeader );
+
+for (var rowNumber = 0; rowNumber < cookieStoreArray[0].staticCookies.length; rowNumber++){
+    var totalCookieTD = document.createElement( 'td' );
+    var trackyMcVariable = 0;
+    for (var colNumber = 0; colNumber < cookieStoreArray.length; colNumber++){
+        trackyMcVariable += cookieStoreArray[colNumber].staticCookies[rowNumber];
+    }
+    console.log('new row');
+    totalCookieTD.innerHTML = '<b>' + trackyMcVariable + '</b>';
+    container.appendChild( totalCookieTD );
+
+}
