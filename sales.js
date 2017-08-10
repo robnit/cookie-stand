@@ -126,8 +126,7 @@ CookieStore.prototype.tableHeaders = function(){
 //Calculate total cookies in all stores
 CookieStore.prototype.totalCookies = function () {
 
-    //Function for totaling columns
-    //create new table row
+    //create new table row to display column totals
     var container = document.getElementById('masterTable');
     var newTableRow = document.createElement( 'tr' );
     newTableRow.id = 'totals' ;
@@ -145,10 +144,8 @@ CookieStore.prototype.totalCookies = function () {
         for (var colNumber = 0; colNumber < cookieStoreArray.length; colNumber++){
             trackyMcVariable += cookieStoreArray[colNumber].staticCookies[rowNumber];
         }
-        console.log('new row');
         totalCookieTD.innerHTML = '<b>' + trackyMcVariable + '</b>';
         container.appendChild( totalCookieTD );
-
     }
     //calculate cookie total per td
     var totalCounter = 0;
@@ -159,7 +156,6 @@ CookieStore.prototype.totalCookies = function () {
     var totalHeader = document.createElement('td');
     totalHeader.innerHTML = '<b>' + totalCounter + '</b>';
     container.appendChild( totalHeader );
-
 };
 
 var cookieStoreArray = [
