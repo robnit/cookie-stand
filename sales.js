@@ -85,8 +85,8 @@ CookieStore.prototype.addToDom = function () {
     this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
 };
 
-CookieStore.prototype.tableHeaders = function(){
 //create table headers populated with openHours elements
+CookieStore.prototype.tableHeaders = function(){
     var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
 
     //create new row for main table, inserting before all other child elements
@@ -123,6 +123,7 @@ CookieStore.prototype.tableHeaders = function(){
     }
 }; // End of tableHeaders method
 
+//Calculate total cookies in all stores
 CookieStore.prototype.totalCookies = function () {
     var totalCounter = 0;
     for (var i = 0; i < cookieStoreArray.length; i++){
@@ -135,7 +136,6 @@ CookieStore.prototype.totalCookies = function () {
     container.appendChild( totalHeader );
 };
 
-// console.log(cookieStoreArray[0].totalCookies());
 var cookieStoreArray = [
     new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport'),
     new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare'),
