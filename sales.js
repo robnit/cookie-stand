@@ -128,9 +128,14 @@ CookieStore.prototype.totalCookies = function () {
     for (var i = 0; i < cookieStoreArray.length; i++){
         totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
     }
-    return totalCounter;
+    var container = document.getElementById('total');
+    var totalHeader = document.createElement('h3');
+    totalHeader.textContent = totalCounter;
+    console.log(totalCounter);
+    container.appendChild( totalCounter );
 };
 
+// console.log(cookieStoreArray[0].totalCookies());
 var cookieStoreArray = [
     new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport'),
     new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare'),
@@ -139,3 +144,4 @@ var cookieStoreArray = [
     new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
 ];
 cookieStoreArray[0].tableHeaders();
+cookieStoreArray[0].totalCookies();
