@@ -146,7 +146,6 @@ cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
 
 //Function for totaling columns
-// cookieStoreArray[colNumber].staticCookies[rowNumber]
 //create new table row
 var container = document.getElementById('masterTable');
 var newTableRow = document.createElement( 'tr' );
