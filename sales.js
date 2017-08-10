@@ -25,7 +25,7 @@ CookieStore.prototype.cookieDataArray = function () {
 
 //Cookie tosser requirement formula
 CookieStore.prototype.cookieTossers = function (input) {
-    if (input <= 2){
+    if (input < 40){
         return 2;
     }
     else if (input % 20 == 0){
@@ -76,7 +76,7 @@ CookieStore.prototype.addToDom = function () {
     for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
         this.makeHTMLelement(container,'td',this.staticCookies[i]);
         //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
-        this.makeHTMLelement(tosserContainer,'td',this.staticCookies[i],true);
+        this.makeHTMLelement(tosserContainer,'td',this.cookieTossers(this.staticCookies[i]),true);
     }
     //calculate total
     for (var i = 0; i < this.staticCookies.length; i++){
@@ -130,9 +130,9 @@ CookieStore.prototype.totalCookies = function () {
     }
     var container = document.getElementById('total');
     var totalHeader = document.createElement('h3');
-    totalHeader.textContent = totalCounter;
+    totalHeader.textContent = 'Total cookies in all stores : ' + totalCounter;
     console.log(totalCounter);
-    container.appendChild( totalCounter );
+    container.appendChild( totalHeader );
 };
 
 // console.log(cookieStoreArray[0].totalCookies());
