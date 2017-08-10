@@ -10,7 +10,7 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust, eleme
 };
 
 CookieStore.prototype.randomCust = function () {
-    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers)) + this.minCustomers);
+    return (Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers);
 };
 
 CookieStore.prototype.avgCookiesPerHour = function () {
