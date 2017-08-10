@@ -125,14 +125,41 @@ CookieStore.prototype.tableHeaders = function(){
 
 //Calculate total cookies in all stores
 CookieStore.prototype.totalCookies = function () {
+
+    //Function for totaling columns
+    //create new table row
+    var container = document.getElementById('masterTable');
+    var newTableRow = document.createElement( 'tr' );
+    newTableRow.id = 'totals' ;
+    container.appendChild( newTableRow );
+
+    //create blank table header
+    container = document.getElementById( 'totals' );
+    var totalTableHeader = document.createElement( 'th' );
+    totalTableHeader.innerHTML = '<b>Totals</b>';
+    container.appendChild( totalTableHeader );
+
+    for (var rowNumber = 0; rowNumber < cookieStoreArray[0].staticCookies.length; rowNumber++){
+        var totalCookieTD = document.createElement( 'td' );
+        var trackyMcVariable = 0;
+        for (var colNumber = 0; colNumber < cookieStoreArray.length; colNumber++){
+            trackyMcVariable += cookieStoreArray[colNumber].staticCookies[rowNumber];
+        }
+        console.log('new row');
+        totalCookieTD.innerHTML = '<b>' + trackyMcVariable + '</b>';
+        container.appendChild( totalCookieTD );
+
+    }
+    //calculate cookie total per td
     var totalCounter = 0;
     for (var i = 0; i < cookieStoreArray.length; i++){
         totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
     }
-    var container = document.getElementById('total');
-    var totalHeader = document.createElement('h3');
-    totalHeader.textContent = 'Total cookies in all stores : ' + totalCounter;
+    // var container = document.getElementById('total');
+    var totalHeader = document.createElement('td');
+    totalHeader.innerHTML = '<b>' + totalCounter + '</b>';
     container.appendChild( totalHeader );
+
 };
 
 var cookieStoreArray = [
@@ -141,31 +168,7 @@ var cookieStoreArray = [
     new CookieStore('Powells', 11, 38, 3.7, 'powells'),
     new CookieStore('St Johns', 20, 38, 2.3, 'stjohns'),
     new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
-]; 
+];
 cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
 
-//Function for totaling columns
-//create new table row
-var container = document.getElementById('masterTable');
-var newTableRow = document.createElement( 'tr' );
-newTableRow.id = 'totals' ;
-container.appendChild( newTableRow );
-
-//create blank table header
-container = document.getElementById( 'totals' );
-var totalTableHeader = document.createElement( 'th' );
-totalTableHeader.innerHTML = '<b>Totals</b>';
-container.appendChild( totalTableHeader );
-
-for (var rowNumber = 0; rowNumber < cookieStoreArray[0].staticCookies.length; rowNumber++){
-    var totalCookieTD = document.createElement( 'td' );
-    var trackyMcVariable = 0;
-    for (var colNumber = 0; colNumber < cookieStoreArray.length; colNumber++){
-        trackyMcVariable += cookieStoreArray[colNumber].staticCookies[rowNumber];
-    }
-    console.log('new row');
-    totalCookieTD.innerHTML = '<b>' + trackyMcVariable + '</b>';
-    container.appendChild( totalCookieTD );
-
-}
