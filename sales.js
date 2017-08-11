@@ -195,7 +195,7 @@ form.addEventListener( 'submit', function(){
     removeTotal.outerHTML = '';
     cookieStoreArray.push(new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value));
     cookieStoreArray[0].totalCookies();
-    // document.form.reset();   TO DO: MAKE THE TEXT FIELDS CLEAR ON SUBMIT
+    event.target.reset();
 
     //DEBUGGING HELPER GARBAGE
     // console.log('submitted store name is ' + this.storeName );
