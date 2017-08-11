@@ -174,15 +174,16 @@ var form = document.getElementById( 'store-entry' ); //.this referrs to form (ht
 form.addEventListener( 'submit', function(){
     event.preventDefault();
 
-    //ALTERNATIVE WAY TO WRITE THIS
+    //ALTERNATIVE WAY TO WRITE THIS PART
     // var name = event.target.storeName.value;
     // var minCustomers = parseInt(event.target.minCustomers.value);
     // var maxCustomers = parseInt(event.target.maxCustomers.value);
     // var avgCookiesPerCust = parseInt(event.target.avgCookies.value);
     // var newQuestion = new CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust);
+
     var removeTotal = document.getElementById( 'totals' );
     removeTotal.outerHTML = '';
-    var newQuestion = new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value);
+    cookieStoreArray.push(new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value));
     cookieStoreArray[0].totalCookies();
     // document.form.reset();   TO DO: MAKE THE TEXT FIELDS CLEAR ON SUBMIT
 
