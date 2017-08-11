@@ -44,7 +44,7 @@ CookieStore.prototype.makeTableElement = function (elementName, elementType, new
     container.appendChild( createNewElement );
 };
 
-//Method to make new TD element with inner HTML content **DOESNT WORK YET**
+//Method to make new TD element with inner HTML content
 CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHTML, tosser) {
     if (tosser) {
         var createTosserElement = document.createElement( elementType );
@@ -59,6 +59,15 @@ CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHT
 };
 
 CookieStore.prototype.addToDom = function () {
+    //check if store name is already present in master table
+    for (var i = 1; i < document.getElementById('masterTable').children.length - 1; i++){
+        if (this.name == document.getElementById('masterTable').children[i].id){
+            console.log('is ' + this.name + 'equal to ' + document.getElementById('masterTable').children[i].id + ' ?');
+            alert ('REDUNDANT NAME DETECTED');
+            break;
+        }
+    }
+
     this.cookieDataArray();
     //Create TR element with id as this.elementId
     this.makeTableElement('masterTable','tr',this.elementId);
