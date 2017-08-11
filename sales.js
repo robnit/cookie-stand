@@ -1,9 +1,9 @@
-function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust, elementId) {
+function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust) {
     this.name = name;
     this.minCustomers = minCustomers;
     this.maxCustomers = maxCustomers;
     this.avgCookiesPerCust = avgCookiesPerCust;
-    this.elementId = elementId;
+    this.elementId = this.name; //TO DO: replace constructor instances of this.elementId with this.name
     this.staticCookies = [];
     this.cookieSum = 0;
     this.addToDom();
@@ -44,7 +44,7 @@ CookieStore.prototype.makeTableElement = function (elementName, elementType, new
     container.appendChild( createNewElement );
 };
 
-//Method to make new TD element with inner HTML content **DOESNT WORK YET**
+//Method to make new TD element with inner HTML content
 CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHTML, tosser) {
     if (tosser) {
         var createTosserElement = document.createElement( elementType );
@@ -59,6 +59,15 @@ CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHT
 };
 
 CookieStore.prototype.addToDom = function () {
+    //check if store name is already present in master table **EXPERIMENTAL** **DOESN'T WORK***
+    for (var i = 1; i < document.getElementById('masterTable').children.length - 1; i++){
+        if (this.name == document.getElementById('masterTable').children[i].id){
+            console.log('is ' + this.name + 'equal to ' + document.getElementById('masterTable').children[i].id + ' ?');
+            alert ('REDUNDANT NAME DETECTED');
+            break;
+        }
+    }
+
     this.cookieDataArray();
     //Create TR element with id as this.elementId
     this.makeTableElement('masterTable','tr',this.elementId);
@@ -125,23 +134,72 @@ CookieStore.prototype.tableHeaders = function(){
 
 //Calculate total cookies in all stores
 CookieStore.prototype.totalCookies = function () {
+
+    //create new table row to display column totals
+    var container = document.getElementById('masterTable');
+    var newTableRow = document.createElement( 'tr' );
+    newTableRow.id = 'totals' ;
+    container.appendChild( newTableRow );
+
+    //create blank table header
+    container = document.getElementById( 'totals' );
+    var totalTableHeader = document.createElement( 'th' );
+    totalTableHeader.innerHTML = '<b>Totals</b>';
+    container.appendChild( totalTableHeader );
+
+    for (var rowNumber = 0; rowNumber < cookieStoreArray[0].staticCookies.length; rowNumber++){
+        var totalCookieTD = document.createElement( 'td' );
+        var trackyMcVariable = 0;
+        for (var colNumber = 0; colNumber < cookieStoreArray.length; colNumber++){
+            trackyMcVariable += cookieStoreArray[colNumber].staticCookies[rowNumber];
+        }
+        totalCookieTD.innerHTML = '<b>' + trackyMcVariable + '</b>';
+        container.appendChild( totalCookieTD );
+    }
+    //calculate cookie total per td
     var totalCounter = 0;
-    for (var i = 0; i < cookieStoreArray.length; i++){
+    for (var i = 0; i < cookieStoreArray.length; i++){ //TO DO: change length to be based on number of children of 'masterTable' element
         totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
     }
-    var container = document.getElementById('total');
-    var totalHeader = document.createElement('h3');
-    totalHeader.textContent = 'Total cookies in all stores : ' + totalCounter;
-    console.log(totalCounter);
+    // var container = document.getElementById('total');
+    var totalHeader = document.createElement('td');
+    totalHeader.innerHTML = '<b>' + totalCounter + '</b>';
     container.appendChild( totalHeader );
 };
 
 var cookieStoreArray = [
-    new CookieStore('PDX Airport', 23, 65, 6.3, 'pdxairport'),
-    new CookieStore('Pioneer Square', 3, 24, 1.2, 'pioneersquare'),
-    new CookieStore('Powells', 11, 38, 3.7, 'powells'),
-    new CookieStore('St Johns', 20, 38, 2.3, 'stjohns'),
-    new CookieStore('Waterfront', 2, 16, 4.6, 'waterfront')
-]; 
-cookieStoreArray[0].tableHeaders();
+    new CookieStore('PDX Airport', 23, 65, 6.3),
+    new CookieStore('Pioneer Square', 3, 24, 1.2),
+    new CookieStore('Powell\'s', 11, 38, 3.7),
+    new CookieStore('St Johns', 20, 38, 2.3),
+    new CookieStore('Waterfront', 2, 16, 4.6)
+];
+// cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
+cookieStoreArray[0].tableHeaders();
+
+//Form & Event Sorcery
+
+var form = document.getElementById( 'store-entry' ); //.this referrs to form (html element that is listening )
+form.addEventListener( 'submit', function(){
+    event.preventDefault();
+
+    //ALTERNATIVE WAY TO WRITE THIS PART
+    // var name = event.target.storeName.value;
+    // var minCustomers = parseInt(event.target.minCustomers.value);
+    // var maxCustomers = parseInt(event.target.maxCustomers.value);
+    // var avgCookiesPerCust = parseInt(event.target.avgCookies.value);
+    // var newQuestion = new CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust);
+
+    var removeTotal = document.getElementById( 'totals' );
+    removeTotal.outerHTML = '';
+    cookieStoreArray.push(new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value));
+    cookieStoreArray[0].totalCookies();
+    // document.form.reset();   TO DO: MAKE THE TEXT FIELDS CLEAR ON SUBMIT
+
+    //DEBUGGING HELPER GARBAGE
+    // console.log('submitted store name is ' + this.storeName );
+    // console.log('submitted mincustomers is ' + this.minCustomers );
+    // console.log('submitted max customers is ' + this.maxCustomers.value );
+    // console.log('submitted avg is ' + this.avgCookies.value );
+});
