@@ -59,7 +59,7 @@ CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHT
 };
 
 CookieStore.prototype.addToDom = function () {
-    //check if store name is already present in master table
+    //check if store name is already present in master table **EXPERIMENTAL** **DOESN'T WORK***
     for (var i = 1; i < document.getElementById('masterTable').children.length - 1; i++){
         if (this.name == document.getElementById('masterTable').children[i].id){
             console.log('is ' + this.name + 'equal to ' + document.getElementById('masterTable').children[i].id + ' ?');
