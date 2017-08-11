@@ -69,7 +69,10 @@ CookieStore.prototype.addToDom = function () {
     // }
 
     for (var i = 0; i < document.getElementById('masterTable').children.length; i++) {
-        console.log(document.getElementById('masterTable').children[i].id);
+        console.log('Redundancy checker sees: ' + document.getElementById('masterTable').children[i].id);
+        if (this.name == document.getElementById('masterTable').children[i].id) {
+            console.log('REDUNDANT NAME FOUND');
+        }
     }
 
     this.cookieDataArray();
