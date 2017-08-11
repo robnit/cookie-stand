@@ -167,6 +167,7 @@ var cookieStoreArray = [
 ];
 // cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
+cookieStoreArray[0].tableHeaders();
 
 //Form & Event Sorcery
 
