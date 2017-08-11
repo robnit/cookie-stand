@@ -59,47 +59,49 @@ CookieStore.prototype.makeHTMLelement = function (container,elementType, innerHT
 };
 
 CookieStore.prototype.addToDom = function () {
-    // check if store name is already present in master table **EXPERIMENTAL** **DOESN'T WORK***
-    // for (var i = 1; i < document.getElementById('masterTable').children.length - 1; i++){
-    //     if (this.name == document.getElementById('masterTable').children[i].id){
-    //         console.log('is ' + this.name + 'equal to ' + document.getElementById('masterTable').children[i].id + ' ?');
-    //         alert ('REDUNDANT NAME DETECTED');
-    //         break;
-    //     }
-    // }
-
+    var isRedundant = 0;
+    //Check if store name is already on table
     for (var i = 0; i < document.getElementById('masterTable').children.length; i++) {
         console.log('Redundancy checker sees: ' + document.getElementById('masterTable').children[i].id);
         if (this.name == document.getElementById('masterTable').children[i].id) {
             console.log('REDUNDANT NAME FOUND');
+            isRedundant = 1;
         }
     }
 
-    this.cookieDataArray();
-    //Create TR element with id as this.elementId
-    this.makeTableElement('masterTable','tr',this.elementId);
-    //cookietosser code - create same code as above in cookieTosser table
-    this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
+    if (isRedundant == 0) {
 
-    //Create TD Element with location name
-    var container = document.getElementById(this.elementId);
-    this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
+        this.cookieDataArray();
+        //Create TR element with id as this.elementId
+        this.makeTableElement('masterTable','tr',this.elementId);
+        //cookietosser code - create same code as above in cookieTosser table
+        this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
 
-    //cookietosser code - apply the same code to the "elementID+tosser" element
-    var tosserContainer = document.getElementById(this.elementId + 'tosser');
-    this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
+        //Create TD Element with location name
+        var container = document.getElementById(this.elementId);
+        this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
 
-    for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
-        this.makeHTMLelement(container,'td',this.staticCookies[i]);
-        //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
-        this.makeHTMLelement(tosserContainer,'td',this.cookieTossers(this.staticCookies[i]),true);
+        //cookietosser code - apply the same code to the "elementID+tosser" element
+        var tosserContainer = document.getElementById(this.elementId + 'tosser');
+        this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
+
+        for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
+            this.makeHTMLelement(container,'td',this.staticCookies[i]);
+            //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
+            this.makeHTMLelement(tosserContainer,'td',this.cookieTossers(this.staticCookies[i]),true);
+        }
+        //calculate total
+        for (var i = 0; i < this.staticCookies.length; i++){
+            this.cookieSum = this.cookieSum + this.staticCookies[i];
+        }
+        this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
+    } 
+    else if (isRedundant == 1) {
+        var removeRowContent = document.getElementById(this.name);
+        removeRowContent.innerHTML = '';
+        console.log('REDUNDANCY CODE HERE');
     }
-    //calculate total
-    for (var i = 0; i < this.staticCookies.length; i++){
-        this.cookieSum = this.cookieSum + this.staticCookies[i];
-    }
-    this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
-};
+}; //end of addToDom method
 
 //create table headers populated with openHours elements
 CookieStore.prototype.tableHeaders = function(){
