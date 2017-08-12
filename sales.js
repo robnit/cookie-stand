@@ -69,7 +69,7 @@ CookieStore.prototype.addToDom = function () {
         }
     }
 
-    if (isRedundant == 0) {
+    if (isRedundant === 0) {
 
         this.cookieDataArray();
         //Create TR element with id as this.elementId
@@ -95,11 +95,26 @@ CookieStore.prototype.addToDom = function () {
             this.cookieSum = this.cookieSum + this.staticCookies[i];
         }
         this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
-    } 
-    else if (isRedundant == 1) {
+    }
+    else if (isRedundant === 1) {
+        this.cookieDataArray();
         var removeRowContent = document.getElementById(this.name);
         removeRowContent.innerHTML = '';
         console.log('REDUNDANCY CODE HERE');
+        //Create TR element with id as this.elementId
+        this.makeTableElement('masterTable','tr',this.elementId);
+        //Create TD Element with location name
+        var container = document.getElementById(this.elementId);
+        this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
+        for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
+            this.makeHTMLelement(container,'td',this.staticCookies[i]);
+        }
+        //calculate total
+        for (var i = 0; i < this.staticCookies.length; i++){
+            this.cookieSum = this.cookieSum + this.staticCookies[i];
+        }
+        this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
+
     }
 }; //end of addToDom method
 
