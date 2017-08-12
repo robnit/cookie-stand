@@ -212,32 +212,17 @@ var cookieStoreArray = [
     new CookieStore('St Johns', 20, 38, 2.3),
     new CookieStore('Waterfront', 2, 16, 4.6)
 ];
-// cookieStoreArray[0].tableHeaders();
 cookieStoreArray[0].totalCookies();
 cookieStoreArray[0].tableHeaders();
 
 //Form & Event Sorcery
-
-var form = document.getElementById( 'store-entry' ); //.this referrs to form (html element that is listening )
+var form = document.getElementById( 'store-entry' ); 
 form.addEventListener( 'submit', function(){
     event.preventDefault();
-
-    //ALTERNATIVE WAY TO WRITE THIS PART
-    // var name = event.target.storeName.value;
-    // var minCustomers = parseInt(event.target.minCustomers.value);
-    // var maxCustomers = parseInt(event.target.maxCustomers.value);
-    // var avgCookiesPerCust = parseInt(event.target.avgCookies.value);
-    // var newQuestion = new CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust);
 
     var removeTotal = document.getElementById( 'totals' );
     removeTotal.outerHTML = '';
     cookieStoreArray.push(new CookieStore ( this.storeName.value, parseInt(this.minCustomers.value), parseInt(this.maxCustomers.value), this.avgCookies.value));
     cookieStoreArray[0].totalCookies();
     event.target.reset();
-
-    //DEBUGGING HELPER GARBAGE
-    // console.log('submitted store name is ' + this.storeName );
-    // console.log('submitted mincustomers is ' + this.minCustomers );
-    // console.log('submitted max customers is ' + this.maxCustomers.value );
-    // console.log('submitted avg is ' + this.avgCookies.value );
 });
