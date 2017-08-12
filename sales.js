@@ -97,17 +97,31 @@ CookieStore.prototype.addToDom = function () {
         this.makeHTMLelement(container,'td','<b>' + this.cookieSum + '</b>');
     }
     else if (isRedundant === 1) {
+        //Run number processing code
         this.cookieDataArray();
+        //Remove redundant table row
         var removeRowContent = document.getElementById(this.name);
         removeRowContent.innerHTML = '';
-        console.log('REDUNDANCY CODE HERE');
+        //Remove redundant cookietosser row
+        var removeRowContent = document.getElementById(this.name + 'tosser');
+        removeRowContent.innerHTML = '';
+
         //Create TR element with id as this.elementId
         this.makeTableElement('masterTable','tr',this.elementId);
+        //cookietosser code - create same code as above in cookieTosser table
+        this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
+
         //Create TD Element with location name
         var container = document.getElementById(this.elementId);
         this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
+        //cookietosser code - apply the same code to the "elementID+tosser" element
+        var tosserContainer = document.getElementById(this.elementId + 'tosser');
+        this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
+
         for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
             this.makeHTMLelement(container,'td',this.staticCookies[i]);
+            //cookietosser code- does the same as above, but numbers are run through the cookieTossers method
+            this.makeHTMLelement(tosserContainer,'td',this.cookieTossers(this.staticCookies[i]),true);
         }
         //calculate total
         for (var i = 0; i < this.staticCookies.length; i++){
