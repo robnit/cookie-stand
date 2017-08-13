@@ -3,10 +3,11 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust) {
     this.minCustomers = minCustomers;
     this.maxCustomers = maxCustomers;
     this.avgCookiesPerCust = avgCookiesPerCust;
-
     this.staticCookies = [];
     this.cookieSum = 0;
+    this.openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
     this.addToDom();
+
 };
 
 CookieStore.prototype.randomCust = function () {
@@ -18,7 +19,7 @@ CookieStore.prototype.avgCookiesPerHour = function () {
 };
 
 CookieStore.prototype.cookieDataArray = function () {
-    for (var i = 0; i < 15; i++){
+    for (var i = 0; i < this.openHours.length - 1; i++){
         this.staticCookies.push(Math.floor(this.avgCookiesPerHour()));
     }
 };
@@ -134,7 +135,6 @@ CookieStore.prototype.addToDom = function () {
 
 //create table headers populated with openHours elements
 CookieStore.prototype.tableHeaders = function(){
-    var openHours = ['6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00am','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm','8:00pm', 'Total'];
 
     //create new row for main table, inserting before all other child elements
     var headers = document.getElementById('masterTable');
@@ -157,14 +157,14 @@ CookieStore.prototype.tableHeaders = function(){
     var createTosserHead = document.createElement( 'th' );
     tosserHeader.appendChild( createTosserHead );
 
-    for (var i = 0; i < openHours.length; i++) {
+    for (var i = 0; i < this.openHours.length; i++) {
         var createTableHead = document.createElement( 'th' );
-        createTableHead.innerHTML = openHours[i];
+        createTableHead.innerHTML = this.openHours[i];
         tableHeader.appendChild( createTableHead );
         //cookietosser code - nested if conditional to prevent cookietosser table from loading "Total" column
-        if ( i < openHours.length - 1 ){
+        if ( i < this.openHours.length - 1 ){
             var createTosserHead = document.createElement( 'th' );
-            createTosserHead.innerHTML = openHours[i];
+            createTosserHead.innerHTML = this.openHours[i];
             tosserHeader.appendChild( createTosserHead );
         }
     }
