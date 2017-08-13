@@ -34,3 +34,14 @@ footer {
     align-items:center; 
     margin-bottom:30px;
 }
+
+h2 {
+    padding-top:20px;
+}
+table {
+    margin: 10px 20px 20px 20px;
+}
+td {
+    border: solid 1px;
+    padding:10px;
+}
