@@ -4,6 +4,7 @@
         <title>Salmon Cookies</title>
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
+
     <body>
         <nav>
             <ul class="navbar">
@@ -15,20 +16,28 @@
             </ul>
         </nav>
 
-        <main>
-            <div style="display:flex; justify-content:space-around; align-items:center; margin-bottom:30px;">
+        <main class="centerEverything">
+
+            <div style="background-color:lightgrey; padding: 10px;">
+                <h2>Cookies per hour</h2>
+                <table id="masterTable">
+                </table>
             </div>
 
-            <div style="background-color:lightgrey; margin:0 8% 0 8%; padding: 10px; overflow:hidden;">
+            <div style="margin:50px"></div>
 
-                 <h2>Cookies per hour</h2>
-        <table id="masterTable">
-        </table>
-        <h2>Cookie tossers needed per hour</h2>
-        <table id="cookieTossers">
-        </table>
+            <div style="background-color:lightgrey; padding: 10px;">
+            <h2>Cookie tossers needed per hour</h2>
+            <table id="cookieTossers">
+            </table>
+            </div>
 
-        <form id="store-entry">
+        
+            </div>
+
+            <div style="margin-bottom:200px;"></div>
+            <footer style="display:flex; flex-direction:row; justify-content:flex-end; background-color:pink; padding-right:10px; position:fixed; bottom:0; left:0; right:0;">
+                <form id="store-entry">
             <fieldset>
                 <legend>New Store Entry or Update Existing Entry</legend>
 
@@ -40,20 +49,14 @@
 
                 <label for="maxCustomers">Maximum Customers</label>
                 <input type="number" id="maxCustomers" placeholder="Enter a number">
-
+                <br>
                 <label for="avgCookies">Average Cookies Sold Per Customer</label>
                 <input type="text" id="avgCookies" placeholder="Enter a number">
 
                 <button type="submit">Submit</button>
             </fieldset>
-        </form>
-
-        <script src="sales.js"></script>
-
-            </div>
-
-            <div style="margin-bottom:200px;"></div>
-            <footer style="display:flex; flex-direction:row; justify-content:flex-end; background-color:pink; padding-right:10px; position:fixed; bottom:0; left:0; right:0;">
+            <script src="sales.js"></script>
+            </form>
             <p>Salmon Cookie HQ<br>123 Fakestreet<br>Townsville, USA<br>(123)456-7890</p>
         </footer>
         </main>
