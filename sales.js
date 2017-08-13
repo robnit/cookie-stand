@@ -3,7 +3,7 @@ function CookieStore (name, minCustomers, maxCustomers, avgCookiesPerCust) {
     this.minCustomers = minCustomers;
     this.maxCustomers = maxCustomers;
     this.avgCookiesPerCust = avgCookiesPerCust;
-    this.elementId = this.name; //TO DO: replace constructor instances of this.elementId with this.name
+
     this.staticCookies = [];
     this.cookieSum = 0;
     this.addToDom();
@@ -72,17 +72,17 @@ CookieStore.prototype.addToDom = function () {
     if (isRedundant === 0) {
 
         this.cookieDataArray();
-        //Create TR element with id as this.elementId
-        this.makeTableElement('masterTable','tr',this.elementId);
+        //Create TR element with id as this.name
+        this.makeTableElement('masterTable','tr',this.name);
         //cookietosser code - create same code as above in cookieTosser table
-        this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
+        this.makeTableElement('cookieTossers','tr',this.name + 'tosser','');
 
         //Create TD Element with location name
-        var container = document.getElementById(this.elementId);
+        var container = document.getElementById(this.name);
         this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
 
         //cookietosser code - apply the same code to the "elementID+tosser" element
-        var tosserContainer = document.getElementById(this.elementId + 'tosser');
+        var tosserContainer = document.getElementById(this.name + 'tosser');
         this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
 
         for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
@@ -106,16 +106,16 @@ CookieStore.prototype.addToDom = function () {
         var removeRowContent = document.getElementById(this.name + 'tosser');
         removeRowContent.innerHTML = '';
 
-        //Create TR element with id as this.elementId
-        this.makeTableElement('masterTable','tr',this.elementId);
+        //Create TR element with id as this.name
+        this.makeTableElement('masterTable','tr',this.name);
         //cookietosser code - create same code as above in cookieTosser table
-        this.makeTableElement('cookieTossers','tr',this.elementId + 'tosser','');
+        this.makeTableElement('cookieTossers','tr',this.name + 'tosser','');
 
         //Create TD Element with location name
-        var container = document.getElementById(this.elementId);
+        var container = document.getElementById(this.name);
         this.makeHTMLelement(container, 'td','<b>' + this.name + '</b>');
         //cookietosser code - apply the same code to the "elementID+tosser" element
-        var tosserContainer = document.getElementById(this.elementId + 'tosser');
+        var tosserContainer = document.getElementById(this.name + 'tosser');
         this.makeHTMLelement(tosserContainer,'td','<b>' + this.name + '</b>', true);
 
         for (var i = 0; i < this.staticCookies.length; i++) { //populate table row with td elements containing each element from staticCookies array
@@ -196,7 +196,7 @@ CookieStore.prototype.totalCookies = function () {
     }
     //calculate cookie total per td
     var totalCounter = 0;
-    for (var i = 0; i < cookieStoreArray.length; i++){ //TO DO: change length to be based on number of children of 'masterTable' element
+    for (var i = 0; i < cookieStoreArray.length; i++){ 
         totalCounter = totalCounter + cookieStoreArray[i].cookieSum;
     }
     // var container = document.getElementById('total');
